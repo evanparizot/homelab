@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/evanparizot/homelab.git
-    path: argo-apps/root-app/
+    path: argocd-apps/root-app/
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
