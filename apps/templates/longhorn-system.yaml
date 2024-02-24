@@ -1,0 +1,39 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: longhorn-system
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn-system
+  namespace: argocd
+spec:
+  destination:
+    namespace: longhorn-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: longhorn
+    repoURL: https://charts.longhorn.io
+    targetRevision: 1.6.0 
+    helm:
+      releaseName: longhorn
+      valuesObject:
+        persistence:
+          defaultClass: true
+          defaultClassReplicaCount: 3
+        helmPreUpgradeCheckerJob:
+          enabled: false
+      parameters:
+        - name: defaultSettings.defaultDataPath
+          value: /storage
+        - name: service.ui.loadBalancer
+          value: 192.168.1.129
+        - name: service.ui.type
+          value: LoadBalancer
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      prune: true
+      selfHeal: true
