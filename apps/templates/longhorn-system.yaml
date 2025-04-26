@@ -13,27 +13,25 @@ spec:
     namespace: longhorn-system
     server: https://kubernetes.default.svc
   project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
   source:
     chart: longhorn
     repoURL: https://charts.longhorn.io
-    targetRevision: 1.6.0 
+    targetRevision: 1.8.1 
     helm:
       releaseName: longhorn
       valuesObject:
         persistence:
           defaultClass: true
           defaultClassReplicaCount: 3
-        helmPreUpgradeCheckerJob:
-          enabled: false
+        preUpgradeChecker:
+          upgradeVersionCheck: true
       parameters:
         - name: defaultSettings.defaultDataPath
           value: /storage
-        - name: service.ui.loadBalancer
-          value: 192.168.1.129
         - name: service.ui.type
           value: LoadBalancer
-  syncPolicy:
-    automated:
-      allowEmpty: true
-      prune: true
-      selfHeal: true
