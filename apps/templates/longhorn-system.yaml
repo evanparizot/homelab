@@ -1,7 +1,9 @@
-kind: Namespace
 apiVersion: v1
+kind: Namespace
 metadata:
   name: longhorn-system
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -9,15 +11,21 @@ metadata:
   name: longhorn-system
   namespace: argocd
 spec:
+  project: default
   destination:
     namespace: longhorn-system
     server: https://kubernetes.default.svc
-  project: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
       allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - Replace=true
+      - Force=true
   source:
     chart: longhorn
     repoURL: https://charts.longhorn.io
@@ -30,8 +38,8 @@ spec:
           defaultClassReplicaCount: 3
         preUpgradeChecker:
           upgradeVersionCheck: true
-      parameters:
-        - name: defaultSettings.defaultDataPath
-          value: /storage
-        - name: service.ui.type
-          value: LoadBalancer
+        defaultSettings:
+          defaultDataPath: /storage
+        service:
+          ui:
+            type: LoadBalancer
