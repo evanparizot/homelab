@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: longhorn-prometheus-sm
+  namespace: longhorn-system
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  selector:
+    matchLabels:
+      app: longhorn-prometheus
+  namespaceSelector:
+    matchNames:
+    - longhorn-system
+  endpoints:
+  - port: http
