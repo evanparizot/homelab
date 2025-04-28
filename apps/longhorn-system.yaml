@@ -21,7 +21,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
-      allowEmpty: true
     syncOptions:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
@@ -41,7 +40,7 @@ spec:
         preUpgradeChecker:
           upgradeVersionCheck: true
         defaultSettings:
-          defaultDataPath: /storage
+          defaultDataPath: /var/lib/longhorn
         service:
           ui:
             type: LoadBalancer
