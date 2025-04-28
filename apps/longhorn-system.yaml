@@ -4,6 +4,7 @@ metadata:
   name: longhorn-system
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-options: Replace=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -23,10 +24,6 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
-      - ServerSideApply=true
-      - Replace=true
-      - Force=true
   source:
     chart: longhorn
     repoURL: https://charts.longhorn.io
@@ -40,7 +37,7 @@ spec:
         preUpgradeChecker:
           upgradeVersionCheck: true
         defaultSettings:
-          defaultDataPath: /var/lib/longhorn
+          defaultDataPath: /storage
         service:
           ui:
             type: LoadBalancer
