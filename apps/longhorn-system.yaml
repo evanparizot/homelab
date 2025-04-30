@@ -31,6 +31,9 @@ spec:
     helm:
       releaseName: longhorn
       valuesObject:
+        serviceAccount:
+          create: true
+          name: longhorn-service-account
         persistence:
           defaultClass: true
           defaultClassReplicaCount: 3
