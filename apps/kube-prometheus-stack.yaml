@@ -18,6 +18,8 @@ spec:
     helm:
       releaseName: kube-prometheus-stack
       valuesObject:
+        admissionWebhooks:
+          enabled: false
         grafana:
           service:
             type: LoadBalancer
