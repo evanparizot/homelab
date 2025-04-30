@@ -38,7 +38,8 @@ spec:
           defaultClass: true
           defaultClassReplicaCount: 3
         preUpgradeChecker:
-          upgradeVersionCheck: true
+          jobEnabled: false
+          upgradeVersionCheck: false
         defaultSettings:
           defaultDataPath: /storage
         service:
