@@ -31,6 +31,8 @@ spec:
     helm:
       releaseName: longhorn
       valuesObject:
+        crd:
+          force: true
         serviceAccount:
           create: true
           name: longhorn-service-account
@@ -41,7 +43,7 @@ spec:
           jobEnabled: false
           upgradeVersionCheck: false
         defaultSettings:
-          defaultDataPath: /storage
+          defaultDataPath: /mnt/ssd
         service:
           ui:
             type: LoadBalancer
