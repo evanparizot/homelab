@@ -30,3 +30,12 @@ spec:
           storageClass: longhorn
           size: 1Gi
         adminPassword: "default"
+        customDnsEntries:
+          - ip: 192.168.1.132
+            hostname: grafana.home.lab
+          - ip: 192.168.1.131
+            hostname: prometheus.home.lab
+          - ip: 192.168.1.152
+            hostname: home-assistant.home.lab
+          - ip: 192.168.1.150
+            hostname: pihole.home.lab
