@@ -22,12 +22,6 @@ spec:
           service:
             type: LoadBalancer
             loadBalancerIP: 192.168.1.132
-          # additionalDataSources:
-          #   - name: Prometheus
-          #     type: prometheus
-          #     access: proxy
-          #     url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
-          #     isDefault: true
         prometheus:
           service:
             type: LoadBalancer
@@ -53,3 +47,4 @@ spec:
       - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
       - Replace=true
+      - SkipDryRunOnMissingResource=true
