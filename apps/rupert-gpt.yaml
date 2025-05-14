@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rupert-gpt
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rupert-gpt
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/evanparizot/rupert-gpt
+    targetRevision: HEAD
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: bots
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
